@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal, UserMinus, UserPen } from "lucide-react";
 import { useAppContext } from "@/providers/UserContext";
 import { v4 as uuid } from 'uuid';
+import { toast } from "sonner"
 
 export default function Home() {
   const { state, setState } = useAppContext();
@@ -26,6 +27,7 @@ export default function Home() {
   // Função para remover um usuário
   const handleDelete = (id: string) => {
     setState({...state, users: state.users.filter((u) => u.id !== id)});
+    toast.success("Usuario removido.")
   };
 
   // Função para editar um usuário 
@@ -44,12 +46,14 @@ export default function Home() {
       })
       //setUsuarios(novosUsuarios as Usuario[])
       setState({...state, users: novosUsuarios})
+      toast.success("Usuario Alterado.")
     }else{
       //setUsuarios([...usuarios, data as Usuario])
       data.id = uuid()
       data.status = "ativo"
       data.data_cadastro = new Date().toLocaleDateString()
       setState({...state, users: [...state.users, data as Usuario]})
+      toast.success("Usuario Cadastrado.")
     }
 
     setIsOpenForm(!isOpenForm)

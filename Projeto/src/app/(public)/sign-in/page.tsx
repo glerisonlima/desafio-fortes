@@ -8,6 +8,8 @@ import { useAppContext } from "@/providers/UserContext";
 import { createCookies } from "@/services/userActions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner"
+
 
 
 export default function SignIn() {
@@ -25,7 +27,11 @@ export default function SignIn() {
             if(login && login.senha == senha){
                 createCookies()
                 router.push('/')
+            }else{
+                toast.error("Não foi possivel fazer login, verifique seu usuario e senha.")    
             }
+        }else{
+            toast.error("Informe os dados de acesso corretamente.")
         }
     }
     
@@ -47,12 +53,14 @@ export default function SignIn() {
                                 <Input 
                                     value={usuario}
                                     onChange={e => setUsuario(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="gap-2 flex flex-col">
                                 <Label>Senha</Label>
                                 <Input type="password"
                                     value={senha}
+                                    required
                                     onChange={e => setSenha(e.target.value)}
                                 />
                             </div>

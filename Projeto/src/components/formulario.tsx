@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import Usuario from "@/data/model/Usuario";
 import { useEffect } from "react";
+import { toast } from "sonner"
 
 export interface FormularioProps{
   usuario: Partial<Usuario | null>;
@@ -70,7 +71,7 @@ export default function Formulario ({usuario, openForm, cancelar, abrirForm, sal
             Informe os dados para cadastrar o usuário.
           </SheetDescription>
         </SheetHeader>
-        <form onSubmit={handleSubmit(handleSalvar, (erros) => console.log(erros))}>
+        <form onSubmit={handleSubmit(handleSalvar, (erros) => toast.error("Erro ao preencher o formulario."))}>
           <div className="flex flex-col gap-4 mt-4">
             <div>              
               <Input className="hidden"
@@ -91,7 +92,7 @@ export default function Formulario ({usuario, openForm, cancelar, abrirForm, sal
               <Label>E-mail</Label>
               <Input 
                 type="email"
-                {...register('email')}
+                {...register('email' , { required: true })}
                 
               />
             </div>
@@ -99,14 +100,14 @@ export default function Formulario ({usuario, openForm, cancelar, abrirForm, sal
               <Label>Login</Label>
               <Input 
                 type="text"
-                {...register('login')}
+                {...register('login' , { required: true })}
               />
             </div>
             <div>
               <Label>Senha</Label>
               <Input 
                 type="password"
-                {...register('senha')}
+                {...register('senha' , { required: true })}
               />
             </div>
           <Button 
