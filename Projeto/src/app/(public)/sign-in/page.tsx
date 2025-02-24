@@ -13,28 +13,28 @@ import { toast } from "sonner"
 
 
 export default function SignIn() {
-    
+
     const { state, setState } = useAppContext();
     const router = useRouter()
 
     const [usuario, setUsuario] = useState("")
-    const [senha, setSenha] = useState("")   
+    const [senha, setSenha] = useState("")
 
-    function handlerLogin(){
+    function handlerLogin() {
         event?.preventDefault()
-        if(usuario && senha){
-            const login = state.users.find((u: { login: string; }) => u.login == usuario)    
-            if(login && login.senha == senha){
+        if (usuario && senha) {
+            const login = state.users.find((u: { login: string; }) => u.login == usuario)
+            if (login && login.senha == senha) {
                 createCookies()
                 router.push('/')
-            }else{
-                toast.error("Não foi possivel fazer login, verifique seu usuario e senha.")    
+            } else {
+                toast.error("Não foi possivel fazer login, verifique seu usuario e senha.")
             }
-        }else{
+        } else {
             toast.error("Informe os dados de acesso corretamente.")
         }
     }
-    
+
 
     return (
         <main className="flex justify-center items-center h-screen">
@@ -50,7 +50,7 @@ export default function SignIn() {
                         <div className="gap-2 flex flex-col">
                             <div className="gap-2 flex flex-col">
                                 <Label>Usuário</Label>
-                                <Input 
+                                <Input
                                     value={usuario}
                                     onChange={e => setUsuario(e.target.value)}
                                     required
@@ -64,11 +64,11 @@ export default function SignIn() {
                                     onChange={e => setSenha(e.target.value)}
                                 />
                             </div>
-                            <Button 
-                                 
+                            <Button
+
                                 className="w-full mt-6"
                                 onClick={handlerLogin}
-                                >Fazer Login</Button>
+                            >Fazer Login</Button>
                         </div>
                     </form>
                 </CardContent>

@@ -2,7 +2,6 @@ import { MiddlewareConfig, NextRequest, NextResponse } from "next/server"
 
 const publicRoutes = [
     {path: '/sign-in', whenAuthenticated: 'redirect'},
-    {path: '/landpage', whenAuthenticated: 'next'}
 ] as const
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = '/sign-in'
