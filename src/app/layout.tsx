@@ -1,14 +1,11 @@
+
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter as FontSans} from "next/font/google";
 import "./globals.css";
+import { AppProvider } from "@/providers/UserContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fontSans = FontSans({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
@@ -22,12 +19,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+        className={`${fontSans.variable} min-h-screen font-sans antialiased dark`}
+      > 
+        <AppProvider>
+          {children}
+        </AppProvider>
       </body>
     </html>
   );
