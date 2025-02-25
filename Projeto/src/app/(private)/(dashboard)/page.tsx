@@ -1,7 +1,7 @@
 'use client'
 
 import { DataTable } from "./data-table";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Formulario from "@/components/formulario";
 import Usuario from "@/data/model/Usuario";
 import { ColumnDef } from "@tanstack/react-table";
@@ -23,17 +23,23 @@ export default function Home() {
   const [usuarioAtual, setUsuarioAtual] = useState<Partial<Usuario> | null>(null)
   const [isOpenForm, setIsOpenForm] = useState(false)
 
+  const handleToggleForm = useCallback(() => {
+    setIsOpenForm(prev => !prev); // Atualiza com base no estado anterior
+  }, []);
+  
   // Função para remover um usuário
-  const handleDelete = (id: string) => {
+  const handleDelete = useCallback((id: string) => {
     setState({ ...state, users: state.users.filter((u) => u.id !== id) });
     toast.success("Usuario removido.")
-  };
+  },[state, setState]);
 
   // Função para editar um usuário 
-  const handleEdit = (user: Usuario) => {
+  const handleEdit = useCallback((user: Usuario) => {
     setUsuarioAtual(user)
-    setIsOpenForm(!isOpenForm)
-  };
+    handleToggleForm()
+  },[handleToggleForm]);
+
+  
 
   const handleSalvar = async (data: Usuario) => {
 
@@ -105,7 +111,7 @@ export default function Home() {
         ),
       },
     ],
-    []
+    [handleDelete, handleEdit]
   );
 
 

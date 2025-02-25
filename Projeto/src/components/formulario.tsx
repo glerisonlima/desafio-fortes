@@ -33,6 +33,8 @@ export default function Formulario({ usuario, openForm, cancelar, abrirForm, sal
 
   useEffect(() => {
     if (usuario) {
+      // Código que usa setValue
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       setValue("id", usuario?.id ?? "")
       setValue("login", usuario?.login ?? "")
       setValue("email", usuario?.email ?? "")
@@ -40,6 +42,8 @@ export default function Formulario({ usuario, openForm, cancelar, abrirForm, sal
       setValue("status", usuario?.status ?? "")
       setValue("data_cadastro", usuario?.data_cadastro ?? "")
     } else {
+      // Código que usa setValue
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       setValue("id", "")
       setValue("login", "")
       setValue("email", "")
@@ -47,7 +51,7 @@ export default function Formulario({ usuario, openForm, cancelar, abrirForm, sal
       setValue("senha", "")
       setValue("senha", "")
     }
-  }, [usuario])
+  }, [usuario, setValue])
 
   const handleSalvar = (data: Usuario) => {
     salvarUsuario(data)
@@ -71,7 +75,7 @@ export default function Formulario({ usuario, openForm, cancelar, abrirForm, sal
               Informe os dados para cadastrar o usuário.
             </SheetDescription>
           </SheetHeader>
-          <form onSubmit={handleSubmit(handleSalvar, (erros) => toast.error("Erro ao preencher o formulario."))}>
+          <form onSubmit={handleSubmit(handleSalvar, () => toast.error("Erro ao preencher o formulario."))}>
             <div className="flex flex-col gap-4 mt-4">
               <div>
                 <Input className="hidden"

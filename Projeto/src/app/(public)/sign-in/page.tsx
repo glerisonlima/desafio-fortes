@@ -14,7 +14,7 @@ import { toast } from "sonner"
 
 export default function SignIn() {
 
-    const { state, setState } = useAppContext();
+    const { state } = useAppContext();
     const router = useRouter()
 
     const [usuario, setUsuario] = useState("")
