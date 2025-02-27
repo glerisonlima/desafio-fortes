@@ -26,14 +26,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   // Estado inicial
   const [state, setState] = useState<AppState>({
     user: null,
-    theme: "light",
+    theme: "dark",
     isAuthenticated: false,
     users: todosOsUsuarios
   });
 
   return (
     <AppContext.Provider value={{ state, setState }}>
-      {children}
+      <div className={`${state.theme}`} >{children}</div>
     </AppContext.Provider>
   );
 };

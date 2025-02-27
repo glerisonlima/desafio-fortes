@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAppContext } from "@/providers/UserContext";
 import { createCookies } from "@/services/userActions";
+import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner"
@@ -20,7 +21,14 @@ export default function SignIn() {
     const [usuario, setUsuario] = useState("")
     const [senha, setSenha] = useState("")
 
-    function handlerLogin() {
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleToggleLoading = async () => {
+        setIsLoading(prev => !prev); // Atualiza com base no estado anterior
+    };
+
+    function handlerLogin() {        
+        handleToggleLoading()
         event?.preventDefault()
         if (usuario && senha) {
             const login = state.users.find((u: { login: string; }) => u.login == usuario)
@@ -33,12 +41,15 @@ export default function SignIn() {
         } else {
             toast.error("Informe os dados de acesso corretamente.")
         }
+        handleToggleLoading()
     }
+
+
 
 
     return (
         <main className="flex justify-center items-center h-screen">
-            <Card className="w-[450px]">
+            <Card className="w-[450px] bg--card-foreground text--card-foreground">
                 <CardHeader>
                     <CardTitle>Bem Vindo</CardTitle>
                     <CardDescription>
@@ -68,7 +79,11 @@ export default function SignIn() {
 
                                 className="w-full mt-6"
                                 onClick={handlerLogin}
-                            >Fazer Login</Button>
+                            >
+                                {
+                                    isLoading && (<LoaderCircle className="animate-spin"/>)
+                                }
+                                Fazer Login</Button>
                         </div>
                     </form>
                 </CardContent>
